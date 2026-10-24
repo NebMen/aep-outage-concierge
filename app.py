@@ -1,6 +1,7 @@
 import streamlit as st
 from src.data_loader import load_topology
 from src.calculator import calculate_restoration_time
+from src.concierge import generate_customer_alert
 
 # Cache the data load so the app remains blazingly fast on every interaction
 @st.cache_data
@@ -49,12 +50,24 @@ if premise_id:
             else:
                 assets = ["Pole (Medium)", "Crossarm"]
                 
+          
+            # Transparency requirement for the challenge
+
             time_range = calculate_restoration_time(assets)
             
             st.metric(label="Estimated Restoration Time", value=time_range)
             
-            # Transparency requirement for the challenge
             st.caption(f"**AI Reasoning:** Estimate calculated based on replacement of {', '.join(assets)}. Includes baseline labor hours multiplied by a 4.5x indirect labor factor for travel, access, and safety briefings.")
+            
+            # --- LLM INTEGRATION ---
+            st.markdown("---")
+            st.subheader("3. Proactive Customer Communication")
+            
+            with st.spinner("Drafting personalized alert..."):
+                alert_message = generate_customer_alert(premise_id, time_range, assets)
+                st.info(alert_message)
             
     else:
         st.warning("Premise ID not found. Please try another ID from the dataset.")
+
+    
