@@ -1,1 +1,6 @@
-#hellos
+pandas
+streamlit
+ollama
+geopandas
+folium
+streamlit-folium
