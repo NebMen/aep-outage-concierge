@@ -1,4 +1,20 @@
+# Data 
 data/
 .env
+.streamlit/
+
+# Virtual Environment
+venv/
+env/
+
+# Python Cache & Artifacts
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Notebooks
+.ipynb_checkpoints/
+
+# OS Generated
 .DS_Store
